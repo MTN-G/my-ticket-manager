@@ -26,7 +26,7 @@ app.post('/tickets/:id/done', async (req, res) => {
   json.forEach((ticket, index) => {
     if (ticket.id === req.params.id) {
       json[index].done = true;
-      res.send({ updated: true });
+      res.send({ isDone: true });
     }
   });
 });
