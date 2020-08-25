@@ -3,26 +3,13 @@ import axios from 'axios';
 
 export default function Input (props) {
 
-    const [currentValue, setCurrentValue] = useState('')
-
-    const importPartlyTickets = (value) => {
-        axios.get(`/api/tickets?searchText=${value}`)
-        .then(res => {
-            props.setMutableList(res.data);
-            console.log(res.data)
-        })
-        .catch(e => alert(e))
+    const importPartlyTickets = async (value) => {
+        const { data } = await axios.get(`/api/tickets?searchText=${value}`)
+         props.setTicketsList(data);
       }
-
-    useEffect(()=>{
-        if (currentValue === ''){
-          props.importTickets()   
-        } else {
-        importPartlyTickets(currentValue);
-    }},[currentValue])
     
     return (
-        <input id="searchInput" onChange={(e) => {setCurrentValue(e.target.value)}}>
+        <input id="searchInput" onChange={(e) => {importPartlyTickets(e.target.value)}}>
        </input>
     )
 }
