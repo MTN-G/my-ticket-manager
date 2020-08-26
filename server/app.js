@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const express = require('express');
 
 const app = express();
@@ -20,26 +21,28 @@ app.get('/api/tickets/', async (req, res) => {
   }
 });
 
-app.post('/tickets/:id/done', async (req, res) => {
-  const script = await fs.readFile('./data.json');
-  const json = JSON.parse(script);
-  json.forEach((ticket, index) => {
-    if (ticket.id === req.params.id) {
-      json[index].done = true;
-      res.send({ isDone: true });
+app.post('/api/tickets/:ticketId/done', async (req, res) => {
+  const tickets = JSON.parse(await fs.readFile('./data.json'));
+  const ticketsTemp = tickets.map((ticket) => {
+    if (ticket.id === req.params.ticketId) {
+      ticket.done = true;
     }
+    return ticket;
   });
+  fs.writeFile('./data.json', JSON.stringify(ticketsTemp));
+  res.send({ updated: true });
 });
 
-app.post('/tickets/:id/undone', async (req, res) => {
-  const script = await fs.readFile('./data.json');
-  const json = JSON.parse(script);
-  json.forEach((ticket, index) => {
-    if (ticket.id === req.params.id) {
-      json[index].done = false;
-      res.send({ updated: true });
+app.post('/api/tickets/:ticketId/undone', async (req, res) => {
+  const tickets = JSON.parse(await fs.readFile('./data.json'));
+  const ticketsTemp = tickets.map((ticket) => {
+    if (ticket.id === req.params.ticketId) {
+      ticket.done = false;
     }
+    return ticket;
   });
+  fs.writeFile('./data.json', JSON.stringify(ticketsTemp));
+  res.send({ updated: true });
 });
 
 module.exports = app;
