@@ -8,12 +8,12 @@ import './App.css';
 export default function App() {
   const [ticketsList, setTicketsList] = useState([]);
 
-  const importTickets = () => {
+  const importTickets = async () => {
     axios.get('/api/tickets')
       .then((res) => {
         setTicketsList(res.data);
       })
-      .catch((e) => alert(e));
+      .catch((e) => console.log(e));
   };
   // first load
   useEffect(() => {
