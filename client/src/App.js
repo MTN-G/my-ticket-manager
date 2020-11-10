@@ -19,6 +19,10 @@ export default function App() {
 
   const [reset, setReset] = useState(false);
   const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    setCounter(0)
+  }, [reset])
   
   return (
     <div className="app">
