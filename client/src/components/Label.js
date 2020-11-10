@@ -5,13 +5,13 @@ export default function Label({ ticket }) {
     if (obj.hasOwnProperty('labels')) {
       return (
         <>
-          {obj.labels.map((label) => <button className="label" id={label} key={label.id}>{label}</button>)}
+          {obj.labels.map((label) => <button className="label" id={label} key={label}>{label}</button>)}
         </>
       );
     }
   };
 
   return (
-    <lables>{findLabels(ticket)}</lables>
+    <div>{findLabels(ticket)}</div>
   );
 }

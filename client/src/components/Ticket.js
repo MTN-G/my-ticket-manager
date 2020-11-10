@@ -7,17 +7,16 @@ export default function Ticket({
   const [classT, setClassT] = useState('ticket');
 
   useEffect(() => {
-    setCounter(0);
     setClassT('ticket');
   }, [reset]);
 
   setReset(false);
 
   return (
-    <ticket className={classT} key={ticket.id}>
+    <div className={classT} key={ticket.id}>
       <header className="t-title">{ticket.title}</header>
       <h6 className="content">{ticket.content}</h6>
-      <btns className="buttons">
+      <div className="buttons">
         <Label ticket={ticket} />
         <button
           className="hideTicketButton"
@@ -28,7 +27,7 @@ export default function Ticket({
         >
           Hide
         </button>
-      </btns>
+      </div>
       <footer className="t-footer">
         By
         {ticket.userEmail}
@@ -36,6 +35,6 @@ export default function Ticket({
         |
         {new Date(ticket.creationTime).toUTCString().slice(0, 26)}
       </footer>
-    </ticket>
+    </div>
   );
 }

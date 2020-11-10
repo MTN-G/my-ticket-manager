@@ -22,6 +22,7 @@ export default function Labels({ ticketsList, setTicketsList }) {
     <>
       {tabsArr.map((label) => (
         <button
+          key={label}
           onClick={() => { filterFunc(gotLabels, label); }}
           id={label}
         >

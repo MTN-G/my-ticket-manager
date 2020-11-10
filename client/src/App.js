@@ -9,11 +9,8 @@ export default function App() {
   const [ticketsList, setTicketsList] = useState([]);
 
   const importTickets = async () => {
-    axios.get('/api/tickets')
-      .then((res) => {
-        setTicketsList(res.data);
-      })
-      .catch((e) => console.log(e));
+    const { data } = await axios.get('/api/tickets');
+    setTicketsList(data)
   };
   // first load
   useEffect(() => {
@@ -22,25 +19,26 @@ export default function App() {
 
   const [reset, setReset] = useState(false);
   const [counter, setCounter] = useState(0);
-
+  
   return (
     <div className="app">
-      <navbar className="navbar">
+      <div className="navbar">
         <Input importTickets={importTickets} setTicketsList={setTicketsList} />
         <div className="counter">
           Hidden Results:
-          <counter id="hideTicketsCounter">{counter}</counter>
+          <div id="hideTicketsCounter">{counter}</div>
           <button id="restoreHideTickets" onClick={() => setReset(true)}>Restore</button>
         </div>
-      </navbar>
+      </div>
       <h1 className="title">Ticket Manager</h1>
-      <grid className="labelsNav">
+      <div className="labelsNav">
         <button className="all" onClick={() => { importTickets(); }}>All</button>
         <Labels ticketsList={ticketsList} setTicketsList={setTicketsList} />
-      </grid>
+      </div>
       <main className="tickets">
         {ticketsList.map((ticket) => (
           <Ticket
+            key={ticket.id}
             ticket={ticket}
             counter={counter}
             setCounter={setCounter}
