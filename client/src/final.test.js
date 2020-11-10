@@ -55,6 +55,7 @@ describe(projectName, () => {
 
   test('The app title should be Tickets Manager', async () => {
     await page.goto('http://localhost:3000/', { waitUntil: 'networkidle0' })
+    console.log('matan')
     const currentTitle = await page.title();
     expect(currentTitle).toBe('Tickets Manager');
   })
